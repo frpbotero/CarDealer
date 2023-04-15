@@ -1,6 +1,6 @@
 import mongoose, { Schema } from "mongoose";
 
-interface ICar {
+export interface ICar {
   plate: string;
   model: string;
   year: number;

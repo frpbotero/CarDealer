@@ -8,13 +8,13 @@ class CarService {
   getById(id: string) {
     return CarRepository.getByID(id);
   }
-  createUser(body: typeof Car) {
+  create(body: typeof Car) {
     return CarRepository.create(body);
   }
-  deleteCar(id: string) {
+  delete(id: string) {
     return CarRepository.deleteByID(id);
   }
-  updateUser(id: string, body: Partial<typeof Car>) {
+  update(id: string, body: Partial<typeof Car>) {
     return CarRepository.updateByID(id, body);
   }
 }

@@ -18,3 +18,4 @@ class UserService {
     return UserRepository.updateByID(id, body);
   }
 }
+export default new UserService();

@@ -16,7 +16,7 @@ router.get("/:id", authMiddleware, async (req: Request, res: Response) => {
   }
   res.status(200).send(user);
 });
-router.post("/", authMiddleware, async (req: Request, res: Response) => {
+router.post("/", async (req: Request, res: Response) => {
   try {
     await UserService.createUser(req.body);
     res.status(201).send({ message: "Usuário criado com sucesso!" });
@@ -26,7 +26,7 @@ router.post("/", authMiddleware, async (req: Request, res: Response) => {
     });
   }
 });
-router.post("/auth", authMiddleware, async (req: Request, res: Response) => {
+router.post("/auth", async (req: Request, res: Response) => {
   const { email, password } = req.body;
 
   try {

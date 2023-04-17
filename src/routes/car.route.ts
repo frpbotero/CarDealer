@@ -15,7 +15,7 @@ router.get("/:id", authMiddleware, async (req: Request, res: Response) => {
   }
   res.status(200).send(car);
 });
-router.post("/", async (req: Request, res: Response) => {
+router.post("/", authMiddleware, async (req: Request, res: Response) => {
   try {
     await CarService.create(req.body);
     res.status(201).send({ message: "Carro criado com sucesso!" });

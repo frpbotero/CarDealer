@@ -26,16 +26,6 @@ router.post("/", async (req: Request, res: Response) => {
     });
   }
 });
-router.post("/auth", async (req: Request, res: Response) => {
-  const { email, password } = req.body;
-
-  try {
-    const token = await UserService.auth(email, password);
-    res.status(200).send({ token });
-  } catch (error: any) {
-    res.status(401).send({ message: error.message });
-  }
-});
 
 router.put("/:id", authMiddleware, async (req: Request, res: Response) => {
   try {

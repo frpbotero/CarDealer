@@ -23,6 +23,11 @@ class UserService {
     }
     return UserRepository.create(body);
   }
+  async recovery(email: string) {
+    const user = await UserRepository.getByEmail(email);
+    if (user) return user.question;
+    throw new Error("Usuário não encotnrado");
+  }
   deleteUser(id: string) {
     return UserRepository.deleteById(id);
   }
@@ -32,15 +37,16 @@ class UserService {
 
   async auth(email: string, password: string) {
     const user = await UserRepository.getByEmail(email);
-    // console.log(user);
+
     if (!user) throw new Error("Usuário não encontrado!");
 
     try {
       const result = await bcrypt.compare(password, user.password);
 
-      if (result) {
-        return jwt.sign({ id: user.id }, secretKey, { expiresIn: "1h" });
+      if (!result) {
+        throw new Error("Falha na autenticação!");
       }
+      return jwt.sign({ id: user.id }, secretKey, { expiresIn: "1h" });
     } catch {
       throw new Error("Falha na autenticação!");
     }

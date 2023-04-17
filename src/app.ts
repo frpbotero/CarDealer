@@ -4,6 +4,7 @@ import connection from "./config/database";
 
 import userRouter from "./routes/user.route";
 import carRouter from "./routes/car.route";
+import authRouter from "./routes/auth.route";
 
 const app = express();
 const port = 3000;
@@ -13,6 +14,7 @@ app.use(express.json());
 
 app.use("/user", userRouter);
 app.use("/car", carRouter);
+app.use("/auth", authRouter);
 
 connection
   .then(() => {

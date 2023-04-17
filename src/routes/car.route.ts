@@ -1,13 +1,14 @@
 import { Request, Response, Router } from "express";
 import CarService from "../services/car.service";
+import { authMiddleware } from "../middleware/auth.middleware";
 
 const router = Router();
 
-router.get("/", async (req: Request, res: Response) => {
+router.get("/", authMiddleware, async (req: Request, res: Response) => {
   const cars = await CarService.getAll();
   res.status(200).send(cars);
 });
-router.get("/:id", async (req: Request, res: Response) => {
+router.get("/:id", authMiddleware, async (req: Request, res: Response) => {
   const car = await CarService.getById(req.params.id);
   if (!car) {
     return res.status(404).send({ message: "Carro não encontrado!" });
@@ -24,7 +25,7 @@ router.post("/", async (req: Request, res: Response) => {
     });
   }
 });
-router.put("/:id", async (req: Request, res: Response) => {
+router.put("/:id", authMiddleware, async (req: Request, res: Response) => {
   try {
     const car = await CarService.getById(req.params.id);
     if (!car) {
@@ -38,7 +39,7 @@ router.put("/:id", async (req: Request, res: Response) => {
     });
   }
 });
-router.delete("/:id", async (req: Request, res: Response) => {
+router.delete("/:id", authMiddleware, async (req: Request, res: Response) => {
   try {
     const car = await CarService.getById(req.params.id);
     if (!car) {

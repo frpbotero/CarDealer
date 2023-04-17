@@ -31,20 +31,23 @@ class AuthService {
     throw new Error("Usuário não encontrado!");
   }
   async resetPass(body: Partial<IUser>) {
-    if (body.email) {
-      const user = await UserRepository.getByEmail(body.email);
-      if (user) {
-        if (body.answer === user.answer) {
-          if (body.password) {
-            body.password = await bcrypt.hash(body.password, 10);
-          }
-          return UserRepository.updateById(user.id, body);
-        }
-        throw new Error("Falha na autenticação!");
-      }
+    if (!body.email || !body.answer || !body.password) {
       throw new Error("Falha na autenticação!");
     }
-    throw new Error("Falha na autenticação!");
+
+    const user = await UserRepository.getByEmail(body.email);
+
+    if (!user) {
+      throw new Error("Falha na autenticação!");
+    }
+
+    if (body.answer !== user.answer) {
+      throw new Error("Falha na autenticação!");
+    }
+
+    body.password = await bcrypt.hash(body.password, 10);
+
+    return UserRepository.updateById(user.id, body);
   }
 }
 

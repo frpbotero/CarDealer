@@ -22,7 +22,7 @@ router.post("/recovery", async (req: Request, res: Response) => {
 
     res.status(200).send(question);
   } catch (error: any) {
-    res.status(400).send({ message: "Usuário não encontrado!" });
+    res.status(400).send({ message: error.message });
   }
 });
 router.post("/reset", async (req: Request, res: Response) => {

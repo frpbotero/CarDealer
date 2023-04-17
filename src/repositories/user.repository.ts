@@ -1,20 +1,23 @@
-import { User } from "../models/user.model";
+import { User, IUser } from "../models/user.model";
 
 class UserRespository {
   getAll() {
     return User.find();
   }
-  getByID(id: string) {
-    return User.findOne({ id });
+  getById(id: string) {
+    return User.findOne({ _id: id });
   }
-  updateByID(id: string, body: Partial<typeof User>) {
-    return User.updateOne({ id }, { $set: body });
+  getByEmail(email: string) {
+    return User.findOne({ email });
   }
-  create(body: typeof User) {
+  updateById(id: string, body: Partial<IUser>) {
+    return User.updateOne({ _id: id }, { $set: body });
+  }
+  create(body: IUser) {
     return User.create(body);
   }
-  deleteByID(id: string) {
-    return User.deleteOne({ id });
+  deleteById(id: string) {
+    return User.deleteOne({ _id: id });
   }
 }
 

@@ -1,20 +1,23 @@
-import { Car } from "../models/car.model";
+import { Car, ICar } from "../models/car.model";
 
 class CarRespository {
   getAll() {
     return Car.find();
   }
   getByID(id: string) {
-    return Car.findOne({ id });
+    return Car.findOne({ _id: id });
   }
-  updateByID(id: string, body: Partial<typeof Car>) {
-    return Car.updateOne({ id }, { $set: body });
+  getByPlate(plate: string) {
+    return Car.findOne({ plate });
   }
-  create(body: typeof Car) {
+  updateById(id: string, body: Partial<ICar>) {
+    return Car.updateOne({ _id: id }, { $set: body });
+  }
+  create(body: ICar) {
     return Car.create(body);
   }
-  deleteByID(id: string) {
-    return Car.deleteOne({ id });
+  deleteById(id: string) {
+    return Car.deleteOne({ _id: id });
   }
 }
 

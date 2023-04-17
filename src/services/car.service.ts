@@ -1,5 +1,5 @@
 import CarRepository from "../repositories/car.repository";
-import { Car } from "../models/car.model";
+import { ICar } from "../models/car.model";
 
 class CarService {
   getAll() {
@@ -8,14 +8,16 @@ class CarService {
   getById(id: string) {
     return CarRepository.getByID(id);
   }
-  create(body: typeof Car) {
+  async create(body: ICar) {
+    const car = await CarRepository.getByPlate(body.plate);
+    if (car) throw new Error("Carro já cadastrado!");
     return CarRepository.create(body);
   }
   delete(id: string) {
-    return CarRepository.deleteByID(id);
+    return CarRepository.deleteById(id);
   }
-  update(id: string, body: Partial<typeof Car>) {
-    return CarRepository.updateByID(id, body);
+  update(id: string, body: Partial<ICar>) {
+    return CarRepository.updateById(id, body);
   }
 }
 export default new CarService();

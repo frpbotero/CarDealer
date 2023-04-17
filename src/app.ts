@@ -1,4 +1,4 @@
-import express from "express";
+import express, { request } from "express";
 import cors from "cors";
 import connection from "./config/database";
 
@@ -17,6 +17,8 @@ app.use("/car", carRouter);
 connection
   .then(() => {
     console.log("Banco de dados Conectado!");
-    app.listen(port, () => console.log("Server funcionando"));
+    app.listen(port, () => {
+      console.log("Aplicação online na porta:", port);
+    });
   })
   .catch((error) => console.log(error));

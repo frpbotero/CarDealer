@@ -1,13 +1,14 @@
 import { Request, Response, Router, response } from "express";
 import UserService from "../services/user.service";
+import { authMiddleware } from "../middleware/auth.middleware";
 
 const router = Router();
 
-router.get("/", async (req: Request, res: Response) => {
+router.get("/", authMiddleware, async (req: Request, res: Response) => {
   const users = await UserService.getAll();
   res.status(200).send(users);
 });
-router.get("/:id", async (req: Request, res: Response) => {
+router.get("/:id", authMiddleware, async (req: Request, res: Response) => {
   const user = await UserService.getById(req.params.id);
   console.log(user);
   if (!user) {
@@ -15,7 +16,7 @@ router.get("/:id", async (req: Request, res: Response) => {
   }
   res.status(200).send(user);
 });
-router.post("/", async (req: Request, res: Response) => {
+router.post("/", authMiddleware, async (req: Request, res: Response) => {
   try {
     await UserService.createUser(req.body);
     res.status(201).send({ message: "Usuário criado com sucesso!" });
@@ -25,7 +26,7 @@ router.post("/", async (req: Request, res: Response) => {
     });
   }
 });
-router.post("/auth", async (req: Request, res: Response) => {
+router.post("/auth", authMiddleware, async (req: Request, res: Response) => {
   const { email, password } = req.body;
 
   try {
@@ -36,7 +37,7 @@ router.post("/auth", async (req: Request, res: Response) => {
   }
 });
 
-router.put("/:id", async (req: Request, res: Response) => {
+router.put("/:id", authMiddleware, async (req: Request, res: Response) => {
   try {
     const user = await UserService.getById(req.params.id);
     if (!user) {
@@ -50,7 +51,7 @@ router.put("/:id", async (req: Request, res: Response) => {
     });
   }
 });
-router.delete("/:id", async (req: Request, res: Response) => {
+router.delete("/:id", authMiddleware, async (req: Request, res: Response) => {
   try {
     const user = await UserService.getById(req.params.id);
     if (!user) {

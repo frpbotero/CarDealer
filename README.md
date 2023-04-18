@@ -61,5 +61,5 @@ O `personal_token` é do formato JWT e contém informações do usuário. Este �
     + Body
 
             {
-             	"token":                 "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0M2NhMjFjZDJiYzJmZjY3NGRmNTQwYiIsImlhdCI6MTY4MTc2MzM5NiwiZXhwIjoxNjgxNzY2OTk2fQ.yOieK7Jx5BDtqGpcXQkF2bbjot0xa0M9p4A-D-             mjc_I"
+             	"token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0M2NhMjFjZDJiYzJmZjY3NGRmNTQwYiIsImlhdCI6MTY4MTc2MzM5NiwiZXhwIjoxNjgxNzY2OTk2fQ.yOieK7Jx5BDtqGpcXQkF2bbjot0xa0M9p4A-D- mjc_I"
              }

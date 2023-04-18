@@ -1,0 +1,13 @@
+[{
+  "_id": {
+    "$oid": "643c90694fac96861c9df597"
+  },
+  "plate": "OAK-1053",
+  "model": "Sandero",
+  "year": 2014,
+  "brand": "Renaul",
+  "color": "Prata",
+  "buyValue": 20000,
+  "createdAt": "16/04/2023, 20:18:48",
+  "__v": 0
+}]

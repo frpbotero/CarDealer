@@ -1,4 +1,4 @@
-import { Request, Response, Router, response } from "express";
+import { Request, Response, Router } from "express";
 import UserService from "../services/user.service";
 import { authMiddleware } from "../middleware/auth.middleware";
 
@@ -10,7 +10,7 @@ router.get("/", authMiddleware, async (req: Request, res: Response) => {
 });
 router.get("/:id", authMiddleware, async (req: Request, res: Response) => {
   const user = await UserService.getById(req.params.id);
-  console.log(user);
+
   if (!user) {
     return res.status(404).send({ message: "Usuário não encontrado!" });
   }

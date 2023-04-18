@@ -1,12 +1,7 @@
 import UserRepository from "../repositories/user.repository";
 import { IUser } from "../models/user.model";
 import bcrypt from "bcrypt";
-import jwt from "jsonwebtoken";
-import dotenv from "dotenv";
-
-dotenv.config();
-
-const secretKey = process.env.SECRET_KEY || "";
+import { validarCPF } from "../utils/validaCPF.utils";
 
 class UserService {
   getAll() {
@@ -18,10 +13,14 @@ class UserService {
   async createUser(body: IUser) {
     const user = await UserRepository.getByEmail(body.email);
     if (user) throw new Error("Usuário já cadastrado!");
+    body.question = body.question.toUpperCase();
+    body.answer = body.answer.toUpperCase();
     if (body.password) {
       body.password = await bcrypt.hash(body.password, 10);
     }
-    return UserRepository.create(body);
+    if (validarCPF(body.CPF)) throw new Error("CPF inválido!");
+    console.log(body);
+    // return UserRepository.create(body);
   }
 
   deleteUser(id: string) {

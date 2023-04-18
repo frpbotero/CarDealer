@@ -46,7 +46,7 @@ O `personal_token` é do formato JWT e contém informações do usuário. Este �
 | `email` | Informar: `email` |
 | `password` |  Informar: `senha` |
 
-+ Request (localhost:3000/auth)
++ Request (application/json)
 
     + Body
       {

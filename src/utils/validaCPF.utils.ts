@@ -1,6 +1,7 @@
 export function validarCPF(CPF: string) {
   //Removendo tudo que não é numéro.
   const newCPF = CPF.replace(/[^0-9]/g, "");
+
   if (newCPF.length !== 11) {
     return false;
   }
@@ -9,6 +10,7 @@ export function validarCPF(CPF: string) {
   if (/^(\d)\1{10}$/.test(newCPF)) {
     return false;
   }
+
   let sum = 0;
   for (let i = 0; i < 9; i++) {
     sum += parseInt(newCPF.charAt(i)) * (10 - i);
@@ -28,4 +30,5 @@ export function validarCPF(CPF: string) {
   ) {
     return false;
   }
+  return true;
 }

@@ -18,9 +18,10 @@ class UserService {
     if (body.password) {
       body.password = await bcrypt.hash(body.password, 10);
     }
-    if (validarCPF(body.CPF)) throw new Error("CPF inválido!");
-    console.log(body);
-    // return UserRepository.create(body);
+    if (validarCPF(body.CPF) == false) {
+      throw new Error("CPF inválido!");
+    }
+    return UserRepository.create(body);
   }
 
   deleteUser(id: string) {

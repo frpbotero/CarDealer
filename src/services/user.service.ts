@@ -2,6 +2,7 @@ import UserRepository from "../repositories/user.repository";
 import { IUser } from "../models/user.model";
 import bcrypt from "bcrypt";
 import { validarCPF } from "../utils/validaCPF.utils";
+import { validField } from "../utils/validFields";
 
 class UserService {
   getAll() {
@@ -11,6 +12,8 @@ class UserService {
     return UserRepository.getById(id);
   }
   async createUser(body: IUser) {
+    if (validField(body) == false)
+      throw new Error("Favor verificar os dados enviados!");
     const user = await UserRepository.getByEmail(body.email);
     if (user) throw new Error("Usuário já cadastrado!");
     body.question = body.question.toUpperCase();

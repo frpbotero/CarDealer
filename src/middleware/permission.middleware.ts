@@ -9,11 +9,16 @@ const secretKey = process.env.SECRET_KEY || "";
 
 export function permissionMiddleware(permission: string[]) {
   return async (req: Request, res: Response, next: NextFunction) => {
-    const token = req.headers.authorization!.split("Bearer ");
+    const token = req.headers["authorization"];
 
-    const decoded = jwt.verify(token[1], secretKey);
+    if (!token) {
+      return res.status(401).send({ message: "Acesso negado!" });
+    }
+    const tokenSplited = token.split("Bearer ");
+    const decoded = jwt.decode(tokenSplited[1]);
     const decodedInfo = JSON.parse(JSON.stringify(decoded));
-    const user = await UserService.getById(decodedInfo);
+    const user = await UserService.getById(decodedInfo.id);
+    console.log(decodedInfo.id);
 
     if (!user) {
       return res.status(401).send({ message: "Usuário não identificado!" });

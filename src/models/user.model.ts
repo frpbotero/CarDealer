@@ -8,6 +8,7 @@ export interface IUser {
   answer: string;
   CPF: string;
   password: string;
+  profile: string;
   createdAt: string | Date;
 }
 
@@ -18,6 +19,7 @@ export const UserSchema = new Schema<IUser>({
   answer: { type: String, required: true },
   CPF: { type: String, require: true },
   password: { type: String, require: true },
+  profile: { type: String, required: true },
 
   createdAt: {
     type: String,

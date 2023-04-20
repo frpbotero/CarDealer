@@ -19,5 +19,6 @@ export function authMiddleware(
   const decoded = jwt.verify(tokenSplited[1], secretKey);
 
   if (!decoded) return res.status(401).send({ message: "Acesso negado!" });
+
   next();
 }

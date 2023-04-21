@@ -31,6 +31,7 @@ Requisições para a API devem seguir os padrões:
 # Rotas
 
 ##User
+
 | Metodo | Endpoint | Descrição | Status | Autenticação|
 |---|---|---|---|---|
 |GET|/user|Listar todos usuários|200| SIM|
@@ -41,6 +42,7 @@ Requisições para a API devem seguir os padrões:
 
 
 ##Cars
+
 | Metodo | Endpoint | Descrição | Status | Autenticação |
 |---|---|---|---|---|---|
 |GET|/car|Listar todos carros|200| SIM | ADM / Colab|
@@ -50,6 +52,8 @@ Requisições para a API devem seguir os padrões:
 |DELETE|/car/:id|Deleta um usuário pelo ID|200| SIM| ADM |
 
 ##Authenticate
+
+
 | Metodo | Endpoint | Descrição | Status | Autenticação| 
 |---|---|---|---|---|---|
 |POST|/auth|Autentica o usuário|200| NÃO |

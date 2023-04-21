@@ -3,9 +3,6 @@
 Backend  - Sistema de Revenda de automoveis
 
 Recursos disponíveis para acesso via API:
-
-
-Recursos disponíveis para acesso via API:
  <a href="#usuario">Usuários</a> 
  <a href="#car">Carros</a> 
 
@@ -31,35 +28,32 @@ Requisições para a API devem seguir os padrões:
 | `404` | Registro pesquisado não encontrado (Not found).|
 
 
-# Group Autenticação
-Em nossa API realizamos a validação do usuário com email e senha  como forma de autenticação/autorização.
+# Rotas
 
-## Solicitando tokens de acesso
-
-### Utilizando personal_token [POST]
-
-O `personal_token` é do formato JWT e contém informações do usuário. Este é o token utilizado para realizar algumas requisições dentro da API.
-
-#### Dados para envio no POST
-| Parâmetro | Descrição |
-|---|---|
-| `email` | Informar: `email` |
-| `password` |  Informar: `senha` |
-
-+ Request (application/json)
-
-    + Body
+##User
+| Metodo | Endpoint | Descrição | Status | Autenticação
+|---|---|---|---|---|
+|GET|/user|Listar todos usuários|200| SIM
+|GET|/user/:id|Lista um usuário pelo ID|200| SIM
+|POST|/user|Cria um usuário|201| NÃO
+|PUT|/user/:id|Atualiza um usuário pelo ID|200| SIM
+|DELETE|/user/:id|Deleta um usuário pelo ID|200| SIM
 
 
-            {
-            "email": "mv@gmail.com"
-            "password": "121212"
-           }
+##Cars
+| Metodo | Endpoint | Descrição | Status | Autenticação 
+|---|---|---|---|---|---|
+|GET|/car|Listar todos carros|200| SIM | ADM / Colab
+|GET|/car/:id|Lista um usuário pelo ID|200| SIM| ADM / Colab
+|POST|/car|Cria um usuário|201| NÃO| ADM / Colab
+|PUT|/car/:id|Atualiza um usuário pelo ID|200| SIM| ADM 
+|DELETE|/car/:id|Deleta um usuário pelo ID|200| SIM| ADM 
 
- + Response 200 (application/json)
+##Authenticate
+| Metodo | Endpoint | Descrição | Status | Autenticação 
+|---|---|---|---|---|---|
+|POST|/auth|Autentica o usuário|200| NÃO |
+|POST|/auth/recovert|Envia a pergunta secreta cadastrada do usuario|200| NÃO|
+|POST|/auth/reset|Atualiza a nova senha|201| NÃO| 
 
-    + Body
 
-            {
-             	"token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0M2NhMjFjZDJiYzJmZjY3NGRmNTQwYiIsImlhdCI6MTY4MTc2MzM5NiwiZXhwIjoxNjgxNzY2OTk2fQ.yOieK7Jx5BDtqGpcXQkF2bbjot0xa0M9p4A-D- mjc_I"
-             }

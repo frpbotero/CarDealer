@@ -44,10 +44,10 @@ Requisições para a API devem seguir os padrões:
 ##Cars
 
 | Metodo | Endpoint | Descrição | Status | Autenticação |Permissão|
-|---|---|---|---|---|---|---|
-|`GET`|/car|Listar todos carros|200| SIM | ADM / Colab|
-|`GET`|/car/:id|Lista um usuário pelo ID|200| SIM| ADM / Colab|
-|`POST`|/car|Cria um usuário|201| NÃO| ADM / Colab|
+|---|---|---|---|---|---|
+|`GET`|/car|Listar todos carros|200| SIM | ADM e Colab|
+|`GET`|/car/:id|Lista um usuário pelo ID|200| SIM| ADM e Colab|
+|`POST`|/car|Cria um usuário|201| NÃO| ADM e Colab|
 |`PUT`|/car/:id|Atualiza um usuário pelo ID|200| SIM| ADM |
 |`DELETE`|/car/:id|Deleta um usuário pelo ID|200| SIM| ADM |
 
@@ -55,7 +55,7 @@ Requisições para a API devem seguir os padrões:
 
 
 | Metodo | Endpoint | Descrição | Status | Autenticação| 
-|---|---|---|---|---|---|
+|---|---|---|---|---|
 |`POST`|/auth|Autentica o usuário|200| NÃO |
 |`POST`|/auth/recovert|Envia a pergunta secreta cadastrada do usuario|200| NÃO|
 |`POST`|/auth/reset|Atualiza a nova senha|201| NÃO| 

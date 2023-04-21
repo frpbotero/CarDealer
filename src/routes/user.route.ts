@@ -6,6 +6,11 @@ const router = Router();
 
 router.get("/", authMiddleware, async (req: Request, res: Response) => {
   const users = await UserService.getAll();
+  if (!users) {
+    return res
+      .status(404)
+      .send({ message: "Não encontramos usuários cadastrados!" });
+  }
   res.status(200).send(users);
 });
 router.get("/:id", authMiddleware, async (req: Request, res: Response) => {

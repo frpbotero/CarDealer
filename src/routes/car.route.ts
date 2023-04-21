@@ -7,7 +7,7 @@ const router = Router();
 
 router.get(
   "/",
-  permissionMiddleware(["Colab"]),
+  permissionMiddleware(["ADM", "Colab"]),
   async (req: Request, res: Response) => {
     const cars = await CarService.getAll();
     res.status(200).send(cars);
@@ -38,20 +38,24 @@ router.post(
     }
   }
 );
-router.put("/:id", authMiddleware, async (req: Request, res: Response) => {
-  try {
-    const car = await CarService.getById(req.params.id);
-    if (!car) {
-      return res.status(404).send({ message: "Carro não encontrado!" });
+router.put(
+  "/:id",
+  permissionMiddleware(["ADM"]),
+  async (req: Request, res: Response) => {
+    try {
+      const car = await CarService.getById(req.params.id);
+      if (!car) {
+        return res.status(404).send({ message: "Carro não encontrado!" });
+      }
+      await CarService.update(req.params.id, req.body);
+      res.status(200).send({ message: "Carro atualizado com sucesso!" });
+    } catch {
+      res.status(400).send({
+        messsage: "Aconteceu algo, favor verificar as informações enviadas.",
+      });
     }
-    await CarService.update(req.params.id, req.body);
-    res.status(200).send({ message: "Carro atualizado com sucesso!" });
-  } catch {
-    res.status(400).send({
-      messsage: "Aconteceu algo, favor verificar as informações enviadas.",
-    });
   }
-});
+);
 router.delete(
   "/:id",
   permissionMiddleware(["ADM"]),

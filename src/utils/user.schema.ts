@@ -21,5 +21,5 @@ const updateUserSchema = Joi.object({
   CPF: Joi.string().forbidden(),
   password: Joi.string().min(6).max(12),
 });
-export const ValidadeCreateUser = validator(createUserSchema);
-export const ValidadeUpdateUser = validator(updateUserSchema);
+export const ValidateCreateUser = validator(createUserSchema);
+export const ValidateUpdateUser = validator(updateUserSchema);

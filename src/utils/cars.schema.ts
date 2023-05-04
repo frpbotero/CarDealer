@@ -12,8 +12,8 @@ const createCarSchema = Joi.object({
   }),
   model: Joi.string().required(),
   year: Joi.string().min(4).max(4).required().messages({
-    "string.min": "Favor informar apenas 4 caracteres no formato 2023",
-    "string.max": "Favor informar apenas 4 caracteres no formato 2023",
+    "string.min": "Favor informar apenas 4 caracteres no formato XXXX",
+    "string.max": "Favor informar apenas 4 caracteres no formato XXXX",
   }),
   brand: Joi.string().min(3).required(),
   color: Joi.string().required(),

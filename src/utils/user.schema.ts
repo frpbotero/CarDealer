@@ -10,7 +10,10 @@ const createUserSchema = Joi.object({
   email: Joi.string().email().required(),
   question: Joi.string().min(5).required(),
   answer: Joi.string().min(4).required(),
-  CPF: Joi.string().min(11).required(),
+  CPF: Joi.string().min(11).max(11).required().messages({
+    "string.min": "Favor informar apenas 11 caracteres no formato XXXXXXXXXXX",
+    "string.max": "Favor informar apenas 11 caracteres no formato XXXXXXXXXXX",
+  }),
   password: Joi.string().min(6).max(12).required(),
 });
 const updateUserSchema = Joi.object({

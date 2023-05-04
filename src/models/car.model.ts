@@ -3,7 +3,7 @@ import moment from "moment";
 export interface ICar {
   plate: string;
   model: string;
-  year: number;
+  year: string;
   brand: string;
   color: string;
   buyValue: number;
@@ -12,7 +12,7 @@ export interface ICar {
 export const CarSchema = new Schema<ICar>({
   plate: { type: String, require: true },
   model: { type: String, require: true },
-  year: { type: Number, require: true },
+  year: { type: String, require: true },
   brand: { type: String, require: true },
   color: { type: String, require: true },
   buyValue: { type: Number, require: true },

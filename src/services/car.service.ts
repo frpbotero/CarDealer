@@ -11,7 +11,7 @@ class CarService {
   }
   async create(body: ICar) {
     const { error, value } = validateCreateCar(body);
-    if (error) throw new Error("Favor verificar os dados enviados!");
+    if (error) throw new Error(error.message);
     const car = await CarRepository.getByPlate(body.plate);
     if (car) throw new Error("Carro já cadastrado!");
     return CarRepository.create(body);
@@ -21,7 +21,7 @@ class CarService {
   }
   update(id: string, body: Partial<ICar>) {
     const { error, value } = validateUpdateCar(body);
-    if (error) throw new Error("Favor verificar os dados enviados!");
+    if (error) throw new Error(error.message);
     return CarRepository.updateById(id, body);
   }
 }

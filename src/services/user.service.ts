@@ -2,7 +2,7 @@ import UserRepository from "../repositories/user.repository";
 import { IUser } from "../models/user.model";
 import bcrypt from "bcrypt";
 import { validarCPF } from "../utils/validaCPF.utils";
-import { ValidadeCreateUser, ValidadeUpdateUser } from "../utils/user.schema";
+import { ValidateCreateUser, ValidateUpdateUser } from "../utils/user.schema";
 
 class UserService {
   getAll() {
@@ -12,7 +12,7 @@ class UserService {
     return UserRepository.getById(id);
   }
   async createUser(body: IUser) {
-    const { error, value } = ValidadeCreateUser(body);
+    const { error, value } = ValidateCreateUser(body);
 
     if (error) throw new Error("Favor verificar os dados enviados!");
     const user = await UserRepository.getByEmail(body.email);
@@ -32,7 +32,7 @@ class UserService {
     return UserRepository.deleteById(id);
   }
   async updateUser(id: string, body: Partial<IUser>) {
-    const { error, value } = ValidadeUpdateUser(body);
+    const { error, value } = ValidateUpdateUser(body);
     if (error) throw new Error("Favor verificar os dados enviados!");
     if (body.password) {
       body.password = await bcrypt.hash(body.password, 10);

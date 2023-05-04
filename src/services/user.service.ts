@@ -2,7 +2,7 @@ import UserRepository from "../repositories/user.repository";
 import { IUser } from "../models/user.model";
 import bcrypt from "bcrypt";
 import { validarCPF } from "../utils/validaCPF.utils";
-import { validField } from "../utils/validFields";
+import { ValidadeCreateUser, ValidadeUpdateUser } from "../utils/user.schema";
 
 class UserService {
   getAll() {
@@ -12,8 +12,9 @@ class UserService {
     return UserRepository.getById(id);
   }
   async createUser(body: IUser) {
-    if (validField(body) == false)
-      throw new Error("Favor verificar os dados enviados!");
+    const { error, value } = ValidadeCreateUser(body);
+
+    if (error) throw new Error("Favor verificar os dados enviados!");
     const user = await UserRepository.getByEmail(body.email);
     if (user) throw new Error("Usuário já cadastrado!");
     body.question = body.question.toUpperCase();
@@ -31,7 +32,8 @@ class UserService {
     return UserRepository.deleteById(id);
   }
   async updateUser(id: string, body: Partial<IUser>) {
-    //Se o campo de atualização for password, favoor criptografar
+    const { error, value } = ValidadeUpdateUser(body);
+    if (error) throw new Error("Favor verificar os dados enviados!");
     if (body.password) {
       body.password = await bcrypt.hash(body.password, 10);
     }

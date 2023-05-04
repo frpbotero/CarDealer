@@ -30,7 +30,6 @@ router.post("/reset", async (req: Request, res: Response) => {
 
   try {
     const user = await AuthService.resetPass(body);
-    console.log(user);
 
     res.status(200).send({ message: "Senha atualizada com sucesso!" });
   } catch (error: any) {

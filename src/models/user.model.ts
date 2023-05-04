@@ -19,7 +19,10 @@ export const UserSchema = new Schema<IUser>({
   answer: { type: String, required: true },
   CPF: { type: String, require: true },
   password: { type: String, require: true },
-  profile: { type: String, required: true },
+  profile: {
+    type: String,
+    default: "Public",
+  },
 
   createdAt: {
     type: String,

@@ -5,25 +5,17 @@ import { permissionMiddleware } from "../middleware/permission.middleware";
 
 const router = Router();
 
-router.get(
-  "/",
-  permissionMiddleware(["ADM", "Colab"]),
-  async (req: Request, res: Response) => {
-    const cars = await CarService.getAll();
-    res.status(200).send(cars);
+router.get("/", authMiddleware, async (req: Request, res: Response) => {
+  const cars = await CarService.getAll();
+  res.status(200).send(cars);
+});
+router.get("/:id", authMiddleware, async (req: Request, res: Response) => {
+  const car = await CarService.getById(req.params.id);
+  if (!car) {
+    return res.status(404).send({ message: "Carro não encontrado!" });
   }
-);
-router.get(
-  "/:id",
-  permissionMiddleware(["ADM", "Colab"]),
-  async (req: Request, res: Response) => {
-    const car = await CarService.getById(req.params.id);
-    if (!car) {
-      return res.status(404).send({ message: "Carro não encontrado!" });
-    }
-    res.status(200).send(car);
-  }
-);
+  res.status(200).send(car);
+});
 router.post(
   "/",
   permissionMiddleware(["ADM", "Colab"]),
@@ -65,8 +57,8 @@ router.delete(
       if (!car) {
         return res.status(404).send({ message: "Carro não encontrado!" });
       }
-      const at = await CarService.delete(req.params.id);
-      console.log(at);
+      await CarService.delete(req.params.id);
+
       res.status(200).send({ message: "Carro excluído com sucesso!" });
     } catch {
       res.status(400).send({
